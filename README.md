@@ -8,6 +8,9 @@ Sample 3 SPA
 で作成した
 [Sample 2 SPA](https://github.com/MichinobuMaeda/sample2spa)
 を Vuetify に置き換えた。
+Quasar の方が高機能だと思って使い始めたが、
+Vuetify の方が UI パーツの開発が早いようだ。
+ドキュメントも日本語訳されている。
 
 ## 開発環境
 
