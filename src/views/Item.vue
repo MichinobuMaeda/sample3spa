@@ -7,7 +7,7 @@
           <ButtonSecondary
             icon="close"
             label="戻る"
-            @action="() => $router.push({ name: 'top' })"
+            @action="() => $router.push({ name: 'top' }).catch(() => {})"
             :disabled="state.waitUpdate"
           />
         </div>
@@ -44,19 +44,45 @@
               />
             </v-col>
           </v-row>
-          <div class="text-right">
+          <div
+            v-if="!state.confirmDeleteItem"
+            class="text-right"
+          >
+            <ButtonNegative
+              icon="delete"
+              label="削除"
+              @action="() => { state.confirmDeleteItem = true }"
+              :disabled="state.waitUpdate || state.activeItem.id === 'new'"
+            />
             <ButtonSecondary
               icon="close"
               label="取り消し"
-              @action="() => $router.push({ name: 'top' }).catch(() => {})"
+              @action="() => $router.push({ name: 'top' }).catch(() => {}).catch(() => {})"
               :disabled="state.waitUpdate"
             />
             <ButtonPrimary
               icon="save_alt"
               label="保存"
-              @action="() => saveItem(state, () => { $router.push({ name: 'top' }) })"
+              @action="() => saveItem(state, () => { $router.push({ name: 'top' }) }).catch(() => {})"
               :disabled="state.waitUpdate || !state.isItemValid"
             />
+          </div>
+          <div v-else>
+            <v-alert color="red" outlined text icon="warning">
+              本当に削除しますか？
+            </v-alert>
+            <div class="text-right">
+              <ButtonSecondary
+                icon="close"
+                label="取り消し"
+                @action="() => { state.confirmDeleteItem = false }"
+              />
+              <ButtonNegative
+                icon="delete"
+                label="削除"
+                @action="() => deleteItem(state, () => { $router.push({ name: 'top' }) }).catch(() => {})"
+              />
+            </div>
           </div>
         </v-form>
       </div>
@@ -69,13 +95,15 @@ import store from '../plugins/composition-api'
 import PageTitle from '../components/PageTitle'
 import ButtonPrimary from '../components/ButtonPrimary'
 import ButtonSecondary from '../components/ButtonSecondary'
+import ButtonNegative from '../components/ButtonNegative'
 
 export default {
   name: 'PageItem',
   components: {
     PageTitle,
     ButtonPrimary,
-    ButtonSecondary
+    ButtonSecondary,
+    ButtonNegative
   },
   setup () {
     // 保持データのストアを使用する。

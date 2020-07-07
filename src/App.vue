@@ -13,21 +13,25 @@
           src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
           transition="scale-transition"
           width="40"
+          @click="$router.push({ name: 'top' }).catch(() => {})"
         />
 
       </div>
 
-      <v-toolbar-title>Sample 3 SPA</v-toolbar-title>
+      <v-toolbar-title
+        @click="$router.push({ name: 'top' }).catch(() => {})"
+      >
+        Sample 3 SPA
+      </v-toolbar-title>
 
       <v-spacer></v-spacer>
 
       <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
+        @click="$router.push({ name: 'raw' }).catch(() => {})"
         text
       >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>open_in_new</v-icon>
+        <v-icon>memory</v-icon>
+        <span class="mr-2">Raw data</span>
       </v-btn>
     </v-app-bar>
 
@@ -51,7 +55,7 @@ export default {
     // route 変更時の処理
     watchEffect(() => {
       // 編集対象の商品を設定する。
-      store.setActiveItem(store.state, context.root.$route)
+      store.setActiveItemFromRoute(store.state, context.root.$route)
       // データ更新待機ステータをクリアする。
       store.state.waitUpdate = false
     })
