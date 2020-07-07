@@ -11,8 +11,6 @@ Sample 3 SPA
 
 ## 開発環境
 
-### Node.js とグローバル・パッケージ
-
 ```shell script
 $ node --version
   v14.2.0
@@ -30,6 +28,23 @@ $ npm i -g npm yarn eslint @vue/cli
 + npm@6.14.5
 ```
 
+[Sample 1 API](https://github.com/MichinobuMaeda/sample1api)
+を起動しておく。
+
+```shell script
+$ git clone git@github.com:MichinobuMaeda/sample1api.git
+$ cd sample1api
+$ php -S 0.0.0.0:8000 -t public
+```
+
+このプロジェクトのソースを入手して UI を起動する。
+
+```shell script
+$ git clone git@github.com:MichinobuMaeda/sample3spa.git
+$ cd sample3spa
+$ yarn serve
+```
+
 ### プロジェクトの初期構築
 
 ```shell script
@@ -44,43 +59,17 @@ $ vue add vuetify
  it's recommended to commit or stash them first.
  ? Still proceed? Yes
 
+$ vue add eslint
+ WARN  There are uncommited changes in the current repository,
+ it's recommended to commit or stash them first.
+ ? Still proceed? Yes
+ ? Pick an ESLint config: Standardy
+ ? Pick additional lint features: Lint on save
+
 $ yarn add @vue/composition-api axios
 $ git init
 $ git add .
 $ git commit -m "first commit"
 $ git remote add origin git@github.com:MichinobuMaeda/sample3spa.git
 $ git push -u origin master
-```
-
-[Sample 1 API](https://github.com/MichinobuMaeda/sample1api)
-を起動しておく。
-
-```shell script
-$ git clone git@github.com:MichinobuMaeda/sample1api.git
-$ cd sample1api
-$ php -S 0.0.0.0:8000 -t public
-```
-
-Sample 2 SPA を起動する。
-
-```shell script
-$ git clone git@github.com:MichinobuMaeda/sample2spa.git
-$ cd sample2spa
-$ quasar dev
-```
-
-## プロジェクトの作成手順
-
-``quasar create`` のオプションはすべてデフォルトを選択する。
-
-```
-$ quasar create sample2spa
-$ cd sample2spa
-$ git init
-$ git add .
-$ git commit -m "First commit"
-$ git remote add origin git@github.com:MichinobuMaeda/sample2spa.git
-$ git push -u origin master
-$ yarn add @vue/composition-api
-$ yarn add axios
 ```

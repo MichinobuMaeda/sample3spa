@@ -15,15 +15,9 @@
           width="40"
         />
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
       </div>
+
+      <v-toolbar-title>Sample 3 SPA</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -33,28 +27,34 @@
         text
       >
         <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
+        <v-icon>open_in_new</v-icon>
       </v-btn>
     </v-app-bar>
 
-    <v-content>
-      <HelloWorld/>
-    </v-content>
+    <v-main class="ma-3">
+      <router-view />
+    </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import store from './plugins/composition-api'
+import { onMounted, watchEffect } from '@vue/composition-api'
 
 export default {
   name: 'App',
-
-  components: {
-    HelloWorld,
-  },
-
-  data: () => ({
-    //
-  }),
-};
+  setup (props, context) {
+    // 保持データのストアを供給する。
+    store.provideStore(store)
+    // 初期データを取得する。
+    onMounted(() => store.listItems(store.state))
+    // route 変更時の処理
+    watchEffect(() => {
+      // 編集対象の商品を設定する。
+      store.setActiveItem(store.state, context.root.$route)
+      // データ更新待機ステータをクリアする。
+      store.state.waitUpdate = false
+    })
+  }
+}
 </script>
