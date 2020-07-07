@@ -29,13 +29,7 @@ $ npm i -g npm yarn eslint @vue/cli
 ```
 
 [Sample 1 API](https://github.com/MichinobuMaeda/sample1api)
-を起動しておく。
-
-```shell script
-$ git clone git@github.com:MichinobuMaeda/sample1api.git
-$ cd sample1api
-$ php -S 0.0.0.0:8000 -t public
-```
+の「プロジェクトの利用」の手順で HTTP API を起動しておく。
 
 このプロジェクトのソースを入手して UI を起動する。
 
